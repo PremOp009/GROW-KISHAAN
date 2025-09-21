@@ -1,3 +1,35 @@
+
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "A vibrant, lush green field under a clear blue sky, representing freshness and agriculture.",
+      "imageUrl": "https://picsum.photos/seed/hero/1920/1080",
+      "imageHint": "farm field"
+    },
+    {
+      "id": "crop1",
+      "description": "Close-up of fresh organic tomatoes on the vine.",
+      "imageUrl": "https://picsum.photos/seed/crop1/600/400",
+      "imageHint": "tomatoes"
+    },
+    {
+      "id": "crop2",
+      "description": "A field of golden wheat under the sun.",
+      "imageUrl": "https://picsum.photos/seed/crop2/600/400",
+      "imageHint": "wheat field"
+    },
+    {
+      "id": "crop3",
+      "description": "A crisp, green cabbage head in a field.",
+      "imageUrl": "https://picsum.photos/seed/crop3/600/400",
+      "imageHint": "cabbage"
+    },
+    {
+      "id": "crop4",
+      "description": "A bunch of sweet, orange carrots with green tops.",
+      "imageUrl": "https://picsum.photos/seed/crop4/600/400",
+      "imageHint": "carrots"
+    }
+  ]
 }
