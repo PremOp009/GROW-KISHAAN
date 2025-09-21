@@ -37,7 +37,7 @@ export default function Home() {
 
       <section id="browse-crops" className="container mx-auto px-4 py-12 md:py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold">Available Near You</h2>
+          <h2 className="text-3xl md:text-4xl font-headline font-bold">Available For You</h2>
           <p className="text-muted-foreground mt-2 text-lg">
             Explore fresh, locally-sourced crops from trusted farmers.
           </p>
