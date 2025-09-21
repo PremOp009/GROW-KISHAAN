@@ -10,7 +10,7 @@ interface CropCardProps {
 }
 
 export function CropCard({ crop }: CropCardProps) {
-  const unit = crop.quantity.split(" ")[1];
+  const unit = crop.quantity.split(" ")[1] || '';
   return (
     <Card className="flex flex-col overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg duration-300">
       <CardHeader className="p-0">

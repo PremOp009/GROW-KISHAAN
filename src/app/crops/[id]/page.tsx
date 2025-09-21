@@ -5,19 +5,19 @@ import { MapPin, User, Package, IndianRupee, Minus, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { crops, farmers } from '@/lib/data';
+import { mockDb } from '@/lib/data';
 import { requestPurchase } from '@/lib/actions';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 
 export default function CropDetailPage({ params }: { params: { id: string } }) {
-  const crop = crops.find((c) => c.id === params.id);
+  const crop = mockDb.crops.find((c) => c.id === params.id);
 
   if (!crop) {
     notFound();
   }
 
-  const farmer = farmers.find((f) => f.id === crop.farmerId);
+  const farmer = mockDb.farmers.find((f) => f.id === crop.farmerId);
   const [quantity, unit] = crop.quantity.split(' ');
 
   return (

@@ -2,11 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { CropCard } from "@/components/crop-card";
 import { Button } from "@/components/ui/button";
-import { crops } from "@/lib/data";
+import { mockDb } from "@/lib/data";
 import { placeHolderImages } from '@/lib/placeholder-images';
 
 export default function Home() {
   const heroImage = placeHolderImages.find(p => p.id === 'hero');
+  const { crops } = mockDb;
 
   return (
     <div className="flex flex-col min-h-screen">
