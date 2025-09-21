@@ -23,6 +23,7 @@ export type PurchaseRequest = {
   customerId: string;
   status: 'pending' | 'accepted' | 'declined';
   requestedAt: Date;
+  quantity?: string;
   customerName?: string;
   cropTitle?: string;
 };

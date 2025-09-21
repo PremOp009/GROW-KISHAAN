@@ -1,12 +1,14 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { MapPin, User, Package, IndianRupee } from 'lucide-react';
+import { MapPin, User, Package, IndianRupee, Minus, Plus } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { crops, farmers } from '@/lib/data';
 import { requestPurchase } from '@/lib/actions';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 
 export default function CropDetailPage({ params }: { params: { id: string } }) {
   const crop = crops.find((c) => c.id === params.id);
@@ -16,6 +18,7 @@ export default function CropDetailPage({ params }: { params: { id: string } }) {
   }
 
   const farmer = farmers.find((f) => f.id === crop.farmerId);
+  const [quantity, unit] = crop.quantity.split(' ');
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
@@ -47,7 +50,7 @@ export default function CropDetailPage({ params }: { params: { id: string } }) {
                     <IndianRupee className="w-8 h-8 text-primary" />
                     <div>
                         <p className="text-sm text-muted-foreground">Price</p>
-                        <p className="font-bold text-lg">rupees {crop.price}</p>
+                        <p className="font-bold text-lg">rupees {crop.price} / {unit}</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -71,11 +74,29 @@ export default function CropDetailPage({ params }: { params: { id: string } }) {
           )}
           
           <Separator className="my-6" />
-
-          <form action={async () => {
+          
+          <form action={async (formData: FormData) => {
               'use server';
-              await requestPurchase(crop.id);
+              await requestPurchase(crop.id, formData);
           }}>
+            <div className="grid gap-4 mb-6">
+                <div>
+                    <Label htmlFor="quantity" className="text-lg font-medium">Desired Quantity</Label>
+                    <div className="flex items-center gap-2 mt-2">
+                        <Input 
+                            id="quantity"
+                            name="quantity"
+                            type="number" 
+                            defaultValue="1"
+                            min="1"
+                            max={quantity} // Assuming `quantity` is the max available
+                            className="w-24 text-center"
+                        />
+                        <span className="text-lg text-muted-foreground">{unit}</span>
+                    </div>
+                </div>
+            </div>
+            
             <Button type="submit" size="lg" className="w-full">
               Request Purchase
             </Button>

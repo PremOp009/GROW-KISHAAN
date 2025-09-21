@@ -10,13 +10,17 @@ import type { PurchaseRequest } from './types';
 const FAKE_CUSTOMER_ID = 'customer-1';
 const FAKE_FARMER_ID = 'farmer-1';
 
-export async function requestPurchase(cropId: string) {
+export async function requestPurchase(cropId: string, formData: FormData) {
+  const quantity = formData.get('quantity');
+  console.log(`Requested quantity: ${quantity} for crop ${cropId}`);
+  
   const newRequest: PurchaseRequest = {
     id: `req-${Date.now()}`,
     cropId,
     customerId: FAKE_CUSTOMER_ID,
     status: 'pending',
     requestedAt: new Date(),
+    quantity: quantity ? String(quantity) : undefined,
   };
 
   mockDb.purchaseRequests.unshift(newRequest);

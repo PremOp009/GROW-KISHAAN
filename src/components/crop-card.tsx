@@ -10,6 +10,7 @@ interface CropCardProps {
 }
 
 export function CropCard({ crop }: CropCardProps) {
+  const unit = crop.quantity.split(" ")[1];
   return (
     <Card className="flex flex-col overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg duration-300">
       <CardHeader className="p-0">
@@ -33,7 +34,7 @@ export function CropCard({ crop }: CropCardProps) {
       </CardContent>
       <CardFooter className="flex justify-between items-center p-4 bg-muted/50">
         <div className="font-bold text-lg text-primary">
-          rupees {crop.price} <span className="text-sm font-normal text-muted-foreground">/ {crop.quantity.split(" ")[1]}</span>
+          rupees {crop.price} <span className="text-sm font-normal text-muted-foreground">/ {unit}</span>
         </div>
         <Button asChild>
           <Link href={`/crops/${crop.id}`}>View Details</Link>

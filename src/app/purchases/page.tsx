@@ -1,7 +1,7 @@
 import { mockDb } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Clock, Phone, XCircle } from "lucide-react";
+import { CheckCircle2, Clock, Phone, XCircle, Package } from "lucide-react";
 
 // In a real app, this would come from the user's session
 const FAKE_CUSTOMER_ID = 'customer-1';
@@ -12,10 +12,12 @@ export default function PurchasesPage() {
         .map(request => {
             const crop = mockDb.crops.find(c => c.id === request.cropId);
             const farmer = crop ? mockDb.farmers.find(f => f.id === crop.farmerId) : undefined;
+            const unit = crop?.quantity.split(' ')[1];
             return {
                 ...request,
                 cropTitle: crop?.title || 'Unknown Crop',
                 farmer,
+                unit: unit || '',
             };
         })
         .sort((a, b) => b.requestedAt.getTime() - a.requestedAt.getTime());
@@ -51,8 +53,15 @@ export default function PurchasesPage() {
                                     </Badge>
                                 </div>
                             </CardHeader>
-                            {request.status === 'accepted' && request.farmer && (
-                                <CardContent>
+                            
+                            <CardContent>
+                                {request.quantity && (
+                                     <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                                        <Package className="w-4 h-4"/>
+                                        <span>Quantity Requested: <strong>{request.quantity} {request.unit}</strong></span>
+                                    </div>
+                                )}
+                                {request.status === 'accepted' && request.farmer && (
                                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                                         <h3 className="font-semibold text-green-800">Your request was accepted!</h3>
                                         <p className="text-green-700 text-sm">Please contact the farmer to arrange pickup and payment.</p>
@@ -61,13 +70,11 @@ export default function PurchasesPage() {
                                             <span className="font-mono text-green-800">{request.farmer.phone}</span>
                                         </div>
                                     </div>
-                                </CardContent>
-                            )}
-                            {request.status === 'declined' && (
-                                <CardContent>
+                                )}
+                                {request.status === 'declined' && (
                                     <p className="text-sm text-destructive">The farmer was unable to fulfill this request.</p>
-                                </CardContent>
-                            )}
+                                )}
+                            </CardContent>
                         </Card>
                     ))}
                 </div>

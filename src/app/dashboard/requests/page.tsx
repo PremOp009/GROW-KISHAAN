@@ -20,11 +20,16 @@ export default function RequestsPage() {
     const farmerCropIds = mockDb.crops.filter(c => c.farmerId === FAKE_FARMER_ID).map(c => c.id);
     const requests = mockDb.purchaseRequests
         .filter(r => farmerCropIds.includes(r.cropId))
-        .map(r => ({
-            ...r,
-            cropTitle: mockDb.crops.find(c => c.id === r.cropId)?.title,
-            customerName: mockDb.customers.find(c => c.id === r.customerId)?.name,
-        }))
+        .map(r => {
+            const crop = mockDb.crops.find(c => c.id === r.cropId);
+            const unit = crop?.quantity.split(' ')[1] || '';
+            return {
+                ...r,
+                cropTitle: crop?.title,
+                customerName: mockDb.customers.find(c => c.id === r.customerId)?.name,
+                unit: unit
+            }
+        })
         .sort((a, b) => b.requestedAt.getTime() - a.requestedAt.getTime());
 
     return (
@@ -39,6 +44,7 @@ export default function RequestsPage() {
                         <TableRow>
                             <TableHead>Crop</TableHead>
                             <TableHead>Customer</TableHead>
+                            <TableHead>Quantity</TableHead>
                             <TableHead>Date</TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead className="text-right">Actions</TableHead>
@@ -47,13 +53,14 @@ export default function RequestsPage() {
                     <TableBody>
                         {requests.length === 0 && (
                             <TableRow>
-                                <TableCell colSpan={5} className="text-center h-24">No requests found.</TableCell>
+                                <TableCell colSpan={6} className="text-center h-24">No requests found.</TableCell>
                             </TableRow>
                         )}
                         {requests.map(request => (
                             <TableRow key={request.id}>
                                 <TableCell className="font-medium">{request.cropTitle}</TableCell>
                                 <TableCell>{request.customerName}</TableCell>
+                                <TableCell>{request.quantity ? `${request.quantity} ${request.unit}` : 'N/A'}</TableCell>
                                 <TableCell>{request.requestedAt.toLocaleDateString()}</TableCell>
                                 <TableCell>
                                     <Badge variant={request.status === 'accepted' ? 'default' : request.status === 'pending' ? 'secondary' : 'destructive'} className="capitalize">
