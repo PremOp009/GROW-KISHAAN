@@ -12,6 +12,13 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -28,7 +35,8 @@ const listingFormSchema = z.object({
   photo: z.any().refine(files => files?.length === 1, 'A photo is required.'),
   address: z.string().min(5, { message: 'Address is required.' }),
   price: z.coerce.number().positive({ message: 'Price must be a positive number.' }),
-  quantity: z.string().min(1, { message: 'Quantity is required.' }),
+  quantityValue: z.coerce.number().positive({ message: 'Quantity must be a positive number.' }),
+  quantityUnit: z.string().min(1, { message: 'Please select a unit.' }),
 });
 
 type ListingFormValues = z.infer<typeof listingFormSchema>;
@@ -46,14 +54,17 @@ export function ListingForm() {
       description: '',
       address: '',
       price: 0,
-      quantity: '',
+      quantityValue: 0,
+      quantityUnit: 'kg',
     },
   });
 
   async function onSubmit(data: ListingFormValues) {
     setIsSubmitting(true);
     const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
+    const { quantityValue, quantityUnit, ...rest } = data;
+    formData.append('quantity', `${quantityValue} ${quantityUnit}`);
+    Object.entries(rest).forEach(([key, value]) => {
       if (key === 'photo') {
         formData.append(key, value[0]);
       } else {
@@ -67,11 +78,12 @@ export function ListingForm() {
   const handleImproveWithAI = async () => {
     setIsAiLoading(true);
     setAiError(null);
-    await form.trigger(['title', 'description', 'photo', 'address', 'price', 'quantity']);
-    const { title, description, photo, address, price, quantity } = form.getValues();
+    await form.trigger();
+    const { title, description, photo, address, price, quantityValue, quantityUnit } = form.getValues();
     const photoFile = photo?.[0];
+    const quantity = `${quantityValue} ${quantityUnit}`;
     
-    if (!photoFile || !title || !description || !address || !price || !quantity) {
+    if (!photoFile || !title || !description || !address || !price || !quantityValue || !quantityUnit) {
         setAiError("Please fill all fields and select a photo before using AI.");
         setIsAiLoading(false);
         return;
@@ -145,7 +157,7 @@ export function ListingForm() {
                 </FormItem>
               )}
             />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="price"
@@ -154,19 +166,6 @@ export function ListingForm() {
                       <FormLabel>Price (per unit)</FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="50" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="quantity"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Unit / Quantity</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., 1 kg or 1 dozen" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -181,6 +180,47 @@ export function ListingForm() {
                       <FormControl>
                         <Input placeholder="City, State" {...field} />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <FormField
+                  control={form.control}
+                  name="quantityValue"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Quantity</FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="10" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="quantityUnit"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Unit</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a unit" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="kg">Kilogram (kg)</SelectItem>
+                          <SelectItem value="g">Gram (g)</SelectItem>
+                          <SelectItem value="pound">Pound</SelectItem>
+                          <SelectItem value="piece">Piece</SelectItem>
+                          <SelectItem value="dozen">Dozen</SelectItem>
+                          <SelectItem value="liter">Liter (L)</SelectItem>
+                          <SelectItem value="quintal">Quintal</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
