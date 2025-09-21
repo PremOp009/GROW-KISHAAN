@@ -13,11 +13,7 @@ export function CropCard({ crop }: CropCardProps) {
   return (
     <Card className="flex flex-col overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg duration-300">
       <CardContent className="flex-grow p-4">
-        <CardTitle className="text-lg font-headline mb-2">{crop.title}</CardTitle>
-        <div className="flex items-center text-muted-foreground text-sm">
-          <MapPin className="w-4 h-4 mr-1" />
-          <span>{crop.address}</span>
-        </div>
+        
       </CardContent>
       <CardFooter className="flex justify-between items-center p-4 bg-muted/50">
         <div className="font-bold text-lg text-primary">
