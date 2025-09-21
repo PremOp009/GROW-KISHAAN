@@ -2,12 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { CropCard } from "@/components/crop-card";
 import { Button } from "@/components/ui/button";
-import { mockDb } from "@/lib/data";
+import { getCrops } from '@/lib/actions';
 import { placeHolderImages } from '@/lib/placeholder-images';
 
-export default function Home() {
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
   const heroImage = placeHolderImages.find(p => p.id === 'hero');
-  const { crops } = mockDb;
+  const crops = await getCrops();
 
   return (
     <div className="flex flex-col min-h-screen">

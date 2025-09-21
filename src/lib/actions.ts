@@ -4,11 +4,19 @@ import { improveCropListing, type ImproveCropListingInput } from '@/ai/flows/imp
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { mockDb } from './data';
-import type { PurchaseRequest } from './types';
+import type { PurchaseRequest, Crop } from './types';
 
 // In a real app, you'd get this from the session
 const FAKE_CUSTOMER_ID = 'customer-1';
 const FAKE_FARMER_ID = 'farmer-1';
+
+export async function getCrops(): Promise<Crop[]> {
+  // In a real app, this would fetch from a database.
+  // We'll add a short delay to simulate network latency.
+  await new Promise(resolve => setTimeout(resolve, 50)); 
+  return mockDb.crops;
+}
+
 
 export async function requestPurchase(cropId: string, formData: FormData) {
   const quantity = formData.get('quantity');
