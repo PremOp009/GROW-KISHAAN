@@ -72,6 +72,7 @@ export async function addCropListing(formData: FormData) {
   // Revalidate paths to ensure the UI updates
   revalidatePath('/');
   revalidatePath('/dashboard');
+  revalidatePath('/dashboard/listings');
   redirect('/dashboard');
 }
 
