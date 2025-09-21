@@ -1,5 +1,4 @@
 import type { Crop } from "@/lib/types";
-import Image from "next/image";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,18 +12,6 @@ export function CropCard({ crop }: CropCardProps) {
   const unit = crop.quantity.split(" ")[1] || '';
   return (
     <Card className="flex flex-col overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg duration-300">
-      <CardHeader className="p-0">
-        <div className="relative aspect-video">
-          <Image
-            src={crop.imageUrl}
-            alt={crop.title}
-            fill
-            className="object-cover"
-            data-ai-hint={crop.imageHint}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        </div>
-      </CardHeader>
       <CardContent className="flex-grow p-4">
         <CardTitle className="text-lg font-headline mb-2">{crop.title}</CardTitle>
         <div className="flex items-center text-muted-foreground text-sm">
