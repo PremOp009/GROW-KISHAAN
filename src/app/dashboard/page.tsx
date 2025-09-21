@@ -1,14 +1,19 @@
 import Link from 'next/link';
+import { getCrops } from '@/lib/actions';
 import { mockDb } from '@/lib/data';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { PlusCircle, List, GitPullRequest } from 'lucide-react';
+import { CropCard } from '@/components/crop-card';
 
 // In a real app, this would be from the session
 const FAKE_FARMER_ID = 'farmer-1';
 
-export default function DashboardPage() {
-    const farmerListings = mockDb.crops.filter(c => c.farmerId === FAKE_FARMER_ID);
+export const dynamic = 'force-dynamic';
+
+export default async function DashboardPage() {
+    const allCrops = await getCrops();
+    const farmerListings = allCrops.filter(c => c.farmerId === FAKE_FARMER_ID);
     const listingIds = farmerListings.map(c => c.id);
     const farmerRequests = mockDb.purchaseRequests.filter(r => listingIds.includes(r.cropId) && r.status === 'pending');
 
@@ -53,6 +58,23 @@ export default function DashboardPage() {
                         <p className="text-sm text-muted-foreground mt-3">List a new crop for sale on the marketplace</p>
                     </CardContent>
                 </Card>
+            </div>
+
+            <div className="space-y-4">
+                <h2 className="text-2xl font-bold font-headline">Your Listings</h2>
+                {farmerListings.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {farmerListings.map((crop) => (
+                            <CropCard key={crop.id} crop={crop} />
+                        ))}
+                    </div>
+                ) : (
+                    <Card>
+                        <CardContent className="p-6">
+                            <p className="text-muted-foreground text-center">You haven't listed any crops yet.</p>
+                        </CardContent>
+                    </Card>
+                )}
             </div>
         </div>
     );
