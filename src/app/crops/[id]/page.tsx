@@ -47,7 +47,7 @@ export default function CropDetailPage({ params }: { params: { id: string } }) {
                     <IndianRupee className="w-8 h-8 text-primary" />
                     <div>
                         <p className="text-sm text-muted-foreground">Price</p>
-                        <p className="font-bold text-lg">₹{crop.price}</p>
+                        <p className="font-bold text-lg">rupees {crop.price}</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">

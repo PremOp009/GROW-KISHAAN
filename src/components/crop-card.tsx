@@ -33,7 +33,7 @@ export function CropCard({ crop }: CropCardProps) {
       </CardContent>
       <CardFooter className="flex justify-between items-center p-4 bg-muted/50">
         <div className="font-bold text-lg text-primary">
-          ₹{crop.price} <span className="text-sm font-normal text-muted-foreground">/ {crop.quantity.split(" ")[1]}</span>
+          rupees {crop.price} <span className="text-sm font-normal text-muted-foreground">/ {crop.quantity.split(" ")[1]}</span>
         </div>
         <Button asChild>
           <Link href={`/crops/${crop.id}`}>View Details</Link>
