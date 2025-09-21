@@ -19,7 +19,7 @@ export default function DashboardPage() {
                 <p className="text-muted-foreground">Welcome back! Here's an overview of your farm's activity.</p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium">Total Listings</CardTitle>
@@ -42,15 +42,15 @@ export default function DashboardPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="flex flex-col items-center justify-center bg-transparent border-dashed">
+                <Card className="flex flex-col items-center justify-center bg-transparent border-dashed md:col-span-2">
                     <CardContent className="flex flex-col items-center justify-center p-6">
-                        <Button asChild>
+                        <Button asChild size="lg">
                             <Link href="/dashboard/listings/new">
                                 <PlusCircle className="mr-2 h-4 w-4" />
                                 Add New Listing
                             </Link>
                         </Button>
-                        <p className="text-xs text-muted-foreground mt-2">List a new crop for sale</p>
+                        <p className="text-sm text-muted-foreground mt-3">List a new crop for sale on the marketplace</p>
                     </CardContent>
                 </Card>
             </div>
