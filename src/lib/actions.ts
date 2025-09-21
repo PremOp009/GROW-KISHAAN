@@ -48,10 +48,13 @@ export async function addCropListing(formData: FormData) {
   const imageHint = formData.get('imageHint') as string || 'farm produce';
   const photoFile = formData.get('photo') as File;
 
-  let imageUrl = `https://picsum.photos/seed/${imageHint.replace(' ', '')}${Date.now()}/600/400`;
+  let imageUrl: string;
+
   // Check if a file was actually uploaded and it has content
   if (photoFile && photoFile.size > 0) {
       imageUrl = await fileToDataUri(photoFile);
+  } else {
+      imageUrl = `https://picsum.photos/seed/${imageHint.replace(' ', '')}${Date.now()}/600/400`;
   }
 
   const newCrop: Crop = {
@@ -72,7 +75,6 @@ export async function addCropListing(formData: FormData) {
   // Revalidate paths to ensure the UI updates
   revalidatePath('/');
   revalidatePath('/dashboard');
-  revalidatePath('/dashboard/listings/new');
   redirect('/dashboard');
 }
 
