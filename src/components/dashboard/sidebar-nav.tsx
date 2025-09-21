@@ -36,16 +36,18 @@ export function SidebarNav() {
         <SidebarMenu>
           {links.map((link) => (
             <SidebarMenuItem key={link.href}>
-              <SidebarMenuButton
-                asChild
-                isActive={pathname === link.href}
-                className="w-full justify-start"
-              >
-                <Link href={link.href}>
-                  <link.icon className="mr-2 h-4 w-4" />
-                  {link.label}
-                </Link>
-              </SidebarMenuButton>
+              <Link href={link.href} passHref>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === link.href}
+                  className="w-full justify-start"
+                >
+                  <div>
+                    <link.icon className="mr-2 h-4 w-4" />
+                    {link.label}
+                  </div>
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
