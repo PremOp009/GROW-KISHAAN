@@ -49,6 +49,7 @@ export async function addCropListing(formData: FormData) {
   const photoFile = formData.get('photo') as File;
 
   let imageUrl = `https://picsum.photos/seed/${imageHint.replace(' ', '')}${Date.now()}/600/400`;
+  // Check if a file was actually uploaded and it has content
   if (photoFile && photoFile.size > 0) {
       imageUrl = await fileToDataUri(photoFile);
   }
@@ -65,8 +66,10 @@ export async function addCropListing(formData: FormData) {
     imageHint: imageHint,
   };
 
+  // Correctly add the new crop to the database
   mockDb.crops.unshift(newCrop);
 
+  // Revalidate paths to ensure the UI updates
   revalidatePath('/');
   revalidatePath('/dashboard');
   redirect('/dashboard');
