@@ -37,6 +37,7 @@ const listingFormSchema = z.object({
   price: z.coerce.number().positive({ message: 'Price must be a positive number.' }),
   quantityValue: z.coerce.number().positive({ message: 'Quantity must be a positive number.' }),
   quantityUnit: z.string().min(1, { message: 'Please select a unit.' }),
+  imageHint: z.string().optional(),
 });
 
 type ListingFormValues = z.infer<typeof listingFormSchema>;
@@ -56,6 +57,7 @@ export function ListingForm() {
       price: 0,
       quantityValue: 0,
       quantityUnit: 'kg',
+      imageHint: 'farm produce',
     },
   });
 
@@ -96,6 +98,9 @@ export function ListingForm() {
         try {
             const result = await getAIListingSuggestions({ title, description, photoDataUri, address, price, quantity });
             setAiSuggestions(result);
+            if (result.imageHint) {
+              form.setValue('imageHint', result.imageHint);
+            }
         } catch (error) {
             setAiError("Failed to get AI suggestions. Please try again.");
         } finally {
@@ -117,6 +122,7 @@ export function ListingForm() {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <input type="hidden" {...form.register('imageHint')} />
           <div className="space-y-4">
             <FormField
               control={form.control}

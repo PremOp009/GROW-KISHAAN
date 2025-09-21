@@ -38,6 +38,7 @@ export async function requestPurchase(cropId: string, formData: FormData) {
 }
 
 export async function addCropListing(formData: FormData) {
+  const imageHint = formData.get('imageHint') as string || 'farm produce';
   const newCrop = {
     id: `crop-${Date.now()}`,
     farmerId: FAKE_FARMER_ID,
@@ -46,8 +47,8 @@ export async function addCropListing(formData: FormData) {
     address: formData.get('address') as string,
     price: Number(formData.get('price')),
     quantity: formData.get('quantity') as string,
-    imageUrl: 'https://picsum.photos/seed/new' + Date.now() + '/600/400', // Placeholder for uploaded image
-    imageHint: 'farm produce',
+    imageUrl: `https://picsum.photos/seed/${imageHint.replace(' ', '')}${Date.now()}/600/400`, // Placeholder for uploaded image
+    imageHint: imageHint,
   };
 
   mockDb.crops.unshift(newCrop);

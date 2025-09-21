@@ -20,7 +20,7 @@ const ImproveCropListingInputSchema = z.object({
   photoDataUri: z
     .string()
     .describe(
-      'A photo of the crop, as a data URI that must include a MIME type and use Base64 encoding. Expected format: \'data:<mimetype>;base64,<encoded_data>\'.' // Corrected typo here
+      "A photo of the crop, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'." // Corrected typo here
     ),
   address: z.string().describe('The address where the crop is located.'),
   price: z.number().describe('The price of the crop.'),
@@ -37,6 +37,7 @@ const ImproveCropListingOutputSchema = z.object({
   marketAppealSuggestions: z
     .string()
     .describe('Suggestions to improve the market appeal of the listing.'),
+  imageHint: z.string().describe('A one or two word hint for a stock photo representing the crop. For example: "mangoes" or "fresh bread".'),
 });
 export type ImproveCropListingOutput = z.infer<typeof ImproveCropListingOutputSchema>;
 
@@ -57,6 +58,7 @@ const prompt = ai.definePrompt({
   - A more detailed and engaging description
   - Relevant keywords to improve searchability
   - Suggestions to highlight the unique selling points of the crop
+  - A one or two word hint for a stock photo representing the crop. For example: "mangoes" or "fresh bread".
 
   Here is the current crop listing:
 
@@ -67,7 +69,7 @@ const prompt = ai.definePrompt({
   Price: {{{price}}}
   Quantity: {{{quantity}}}
 
-  Please provide the improved title, description, keywords, and market appeal suggestions.
+  Please provide the improved title, description, keywords, market appeal suggestions, and image hint.
   Format the keywords as a list.
 `,
 });
