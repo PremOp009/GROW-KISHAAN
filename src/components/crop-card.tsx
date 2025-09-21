@@ -23,9 +23,6 @@ export function CropCard({ crop }: CropCardProps) {
         <div className="font-bold text-lg text-primary">
           rupees {crop.price} <span className="text-sm font-normal text-muted-foreground">/ {unit}</span>
         </div>
-        <Button asChild>
-          <Link href={`/crops/${crop.id}`}>View Details</Link>
-        </Button>
       </CardFooter>
     </Card>
   );
