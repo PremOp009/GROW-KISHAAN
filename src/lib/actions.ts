@@ -37,9 +37,23 @@ export async function requestPurchase(cropId: string, formData: FormData) {
   redirect('/purchases?status=success');
 }
 
+async function fileToDataUri(file: File): Promise<string> {
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const base64 = buffer.toString('base64');
+    return `data:${file.type};base64,${base64}`;
+}
+
 export async function addCropListing(formData: FormData) {
   const imageHint = formData.get('imageHint') as string || 'farm produce';
-  const newCrop = {
+  const photoFile = formData.get('photo') as File;
+
+  let imageUrl = `https://picsum.photos/seed/${imageHint.replace(' ', '')}${Date.now()}/600/400`;
+  if (photoFile && photoFile.size > 0) {
+      imageUrl = await fileToDataUri(photoFile);
+  }
+
+  const newCrop: Crop = {
     id: `crop-${Date.now()}`,
     farmerId: FAKE_FARMER_ID,
     title: formData.get('title') as string,
@@ -47,7 +61,7 @@ export async function addCropListing(formData: FormData) {
     address: formData.get('address') as string,
     price: Number(formData.get('price')),
     quantity: formData.get('quantity') as string,
-    imageUrl: `https://picsum.photos/seed/${imageHint.replace(' ', '')}${Date.now()}/600/400`, // Placeholder for uploaded image
+    imageUrl: imageUrl,
     imageHint: imageHint,
   };
 
