@@ -12,29 +12,29 @@ export function AppHeader() {
             GROW KISHAAN
           </span>
         </Link>
-        <nav className="flex items-center gap-6 text-sm">
+        <nav className="flex items-center gap-2 text-sm">
           <Link
             href="/"
-            className="transition-colors hover:text-foreground/80 text-foreground/60"
+            className="transition-colors hover:bg-muted/80 text-foreground/60 px-3 py-2 rounded-md hover:text-foreground"
           >
             Browse Crops
           </Link>
           <Link
             href="/dashboard"
-            className="transition-colors hover:text-foreground/80 text-foreground/60"
+            className="transition-colors hover:bg-muted/80 text-foreground/60 px-3 py-2 rounded-md hover:text-foreground"
           >
             Farmer Dashboard
           </Link>
           <Link
             href="/purchases"
-            className="transition-colors hover:text-foreground/80 text-foreground/60"
+            className="transition-colors hover:bg-muted/80 text-foreground/60 px-3 py-2 rounded-md hover:text-foreground"
           >
             My Purchases
           </Link>
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <Button asChild variant="ghost">
-            <Link href="#">Sign Up</Link>
+            <Link href="/signup">Sign Up</Link>
           </Button>
           <Button asChild>
             <Link href="/login">Farmer Login</Link>
