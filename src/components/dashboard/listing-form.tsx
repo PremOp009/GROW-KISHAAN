@@ -157,6 +157,19 @@ export function ListingForm() {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Location</FormLabel>
+                  <FormControl>
+                    <Input placeholder="City, State" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
@@ -166,19 +179,6 @@ export function ListingForm() {
                       <FormLabel>Price (per unit)</FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="50" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                 <FormField
-                  control={form.control}
-                  name="address"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Location</FormLabel>
-                      <FormControl>
-                        <Input placeholder="City, State" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
