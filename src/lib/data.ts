@@ -1,45 +1,53 @@
 import type { Crop, Farmer, PurchaseRequest, Customer } from './types';
 
-export const farmers: Farmer[] = [
-  {
-    id: 'farmer-1',
-    name: 'Rajesh Kumar',
-    phone: '+919876543210',
-    address: '123, Green Valley, Punjab',
-  },
-];
+// This is a temporary in-memory "database" for demonstration purposes.
+// In a real-world application, you would use a proper database like Firestore.
 
-export const customers: Customer[] = [
+type MockDb = {
+  farmers: Farmer[];
+  customers: Customer[];
+  crops: Crop[];
+  purchaseRequests: PurchaseRequest[];
+};
+
+// We use a global variable to simulate a persistent data store.
+// This is not suitable for production but works for this development context.
+const globalForDb = globalThis as unknown as {
+  mockDb: MockDb | undefined;
+};
+
+const initialDb: MockDb = {
+  farmers: [
     {
-        id: 'customer-1',
-        name: 'Priya Sharma'
-    }
-]
-
-export const crops: Crop[] = [];
-
-export const purchaseRequests: PurchaseRequest[] = [
+      id: 'farmer-1',
+      name: 'Rajesh Kumar',
+      phone: '+919876543210',
+      address: '123, Green Valley, Punjab',
+    },
+  ],
+  customers: [
     {
-        id: 'req-1',
-        cropId: 'crop-1',
-        customerId: 'customer-1',
-        status: 'pending',
-        requestedAt: new Date(),
+      id: 'customer-1',
+      name: 'Priya Sharma',
+    },
+  ],
+  crops: [],
+  purchaseRequests: [
+    {
+      id: 'req-1',
+      cropId: 'crop-1',
+      customerId: 'customer-1',
+      status: 'pending',
+      requestedAt: new Date(),
     },
     {
-        id: 'req-2',
-        cropId: 'crop-2',
-        customerId: 'customer-1',
-        status: 'accepted',
-        requestedAt: new Date(new Date().setDate(new Date().getDate() - 1)),
-    }
-];
+      id: 'req-2',
+      cropId: 'crop-2',
+      customerId: 'customer-1',
+      status: 'accepted',
+      requestedAt: new Date(new Date().setDate(new Date().getDate() - 1)),
+    },
+  ],
+};
 
-// In a real app, this would be a database. For now, we'll mutate this array.
-// This is not safe for concurrent use, but fine for this example.
-export let mockDb = {
-    farmers,
-    customers,
-    crops,
-    purchaseRequests
-}
+export const mockDb = globalForDb.mockDb ?? (globalForDb.mockDb = initialDb);
