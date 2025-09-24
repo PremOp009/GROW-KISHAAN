@@ -37,7 +37,7 @@ export function AppHeader() {
             <Link href="/signup">Sign Up</Link>
           </Button>
           <Button asChild>
-            <Link href="/login">Farmer Login</Link>
+            <Link href="/login">Login</Link>
           </Button>
         </div>
       </div>
