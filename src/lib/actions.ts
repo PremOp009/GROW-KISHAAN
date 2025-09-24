@@ -95,3 +95,14 @@ export async function updateRequestStatus(requestId: string, status: 'accepted' 
         revalidatePath('/dashboard/requests');
     }
 }
+
+export async function signupAction(formData: FormData) {
+    const role = formData.get('role');
+    // In a real app, you would handle user creation here based on the role.
+    // For now, we just redirect to the appropriate page.
+    if (role === 'farmer') {
+      redirect("/dashboard");
+    } else {
+      redirect("/");
+    }
+  }

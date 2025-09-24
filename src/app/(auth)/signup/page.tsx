@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,20 +13,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { signupAction } from "@/lib/actions";
 
 export default function SignupPage() {
   const [role, setRole] = useState("farmer");
-
-  async function signupAction() {
-    "use server";
-    // In a real app, you would handle user creation here based on the role.
-    // For now, we just redirect to the appropriate page.
-    if (role === 'farmer') {
-      redirect("/dashboard");
-    } else {
-      redirect("/");
-    }
-  }
 
   return (
     <div className="flex items-center justify-center min-h-[80vh] py-12">
@@ -42,6 +31,7 @@ export default function SignupPage() {
         </CardHeader>
         <CardContent>
           <form action={signupAction} className="grid gap-4">
+            <input type="hidden" name="role" value={role} />
             <div className="grid gap-2">
               <Label>I am a...</Label>
               <RadioGroup
