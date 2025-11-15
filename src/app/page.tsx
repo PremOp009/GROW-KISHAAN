@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -62,25 +63,16 @@ export default async function Home() {
       <section className="bg-background py-12 border-t">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
-            <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4 shadow-lg">
-              <Image
-                src="https://firebasestudio.googleapis.com/v0/b/firebase-studio-users.appspot.com/o/image-cropper%2Ftmp%2F9882643%2F88358249-14a0-474c-8bb1-e374d97f48d1.png?alt=media&token=8e92f254-6e69-424a-a43b-5a0d3381a340"
-                alt="Developer's photo"
-                fill
-                className="object-cover"
-                data-ai-hint="portrait"
-              />
-            </div>
-            <h3 className="text-2xl font-headline font-bold">Developed By [Your Name]</h3>
+            <h3 className="text-2xl font-headline font-bold">Developed By Mr.Prem Patel</h3>
             <p className="text-muted-foreground mt-2 max-w-md">
               This application was built as a project. Feel free to connect!
             </p>
             <div className="flex items-center gap-6 mt-4">
-              <Link href="mailto:your.email@example.com" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+              <Link href="mailto:prem.patelop207@gmail.com" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                 <Mail className="w-5 h-5" />
                 <span>Email</span>
               </Link>
-              <Link href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://www.linkedin.com/in/prem-patel-b60411378" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                 <Linkedin className="w-5 h-5" />
                 <span>LinkedIn</span>
               </Link>
