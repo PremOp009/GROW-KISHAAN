@@ -62,14 +62,15 @@ export default async function Home() {
       <section className="bg-background py-12 border-t">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
-            <Image
-              src="https://firebasestudio.googleapis.com/v0/b/firebase-studio-users.appspot.com/o/image-cropper%2Ftmp%2F8127393%2F31913f68-7c87-432d-944a-a38f32a76f2d.png?alt=media&token=4042851a-7b3b-410a-810a-d8205f419c96"
-              alt="Developer's photo"
-              width={128}
-              height={128}
-              className="rounded-full mb-4 shadow-lg object-cover"
-              data-ai-hint="portrait"
-            />
+            <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4 shadow-lg">
+              <Image
+                src="https://firebasestudio.googleapis.com/v0/b/firebase-studio-users.appspot.com/o/image-cropper%2Ftmp%2F8077583%2F715c0356-9a25-4c07-ba71-ff6f9f5927c3.png?alt=media&token=db3a4362-e61e-45a8-9d41-5582f3ce6cc2"
+                alt="Developer's photo"
+                fill
+                className="object-cover"
+                data-ai-hint="portrait"
+              />
+            </div>
             <h3 className="text-2xl font-headline font-bold">Developed By [Your Name]</h3>
             <p className="text-muted-foreground mt-2 max-w-md">
               This application was built as a project. Feel free to connect!
