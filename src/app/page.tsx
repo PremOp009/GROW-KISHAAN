@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { getCrops } from '@/lib/actions';
 import { placeHolderImages } from '@/lib/placeholder-images';
 import { CropCard } from "@/components/crop-card";
+import { Mail, Linkedin } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -52,11 +53,40 @@ export default async function Home() {
         </div>
       </section>
 
-      <footer className="bg-secondary text-secondary-foreground py-8 mt-16">
+      <footer className="bg-secondary text-secondary-foreground py-8">
         <div className="container mx-auto text-center">
             <p>&copy; {new Date().getFullYear()} GROW KISHAAN. All rights reserved.</p>
         </div>
       </footer>
+
+      <section className="bg-background py-12 border-t">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center text-center">
+            <Image
+              src="https://picsum.photos/seed/myphoto/128/128"
+              alt="Developer's photo"
+              width={128}
+              height={128}
+              className="rounded-full mb-4 shadow-lg"
+              data-ai-hint="portrait"
+            />
+            <h3 className="text-2xl font-headline font-bold">Developed By [Your Name]</h3>
+            <p className="text-muted-foreground mt-2 max-w-md">
+              This application was built as a project. Feel free to connect!
+            </p>
+            <div className="flex items-center gap-6 mt-4">
+              <Link href="mailto:your.email@example.com" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                <Mail className="w-5 h-5" />
+                <span>Email</span>
+              </Link>
+              <Link href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                <Linkedin className="w-5 h-5" />
+                <span>LinkedIn</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
