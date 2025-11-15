@@ -64,7 +64,7 @@ export default async function Home() {
           <div className="flex flex-col items-center text-center">
             <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4 shadow-lg">
               <Image
-                src="https://firebasestudio.googleapis.com/v0/b/firebase-studio-users.appspot.com/o/image-cropper%2Ftmp%2F8077583%2F88358249-14a0-474c-8bb1-e374d97f48d1.png?alt=media&token=8e92f254-6e69-424a-a43b-5a0d3381a340"
+                src="https://firebasestudio.googleapis.com/v0/b/firebase-studio-users.appspot.com/o/image-cropper%2Ftmp%2F9882643%2F88358249-14a0-474c-8bb1-e374d97f48d1.png?alt=media&token=8e92f254-6e69-424a-a43b-5a0d3381a340"
                 alt="Developer's photo"
                 fill
                 className="object-cover"
