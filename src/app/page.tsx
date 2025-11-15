@@ -63,11 +63,11 @@ export default async function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <Image
-              src="https://picsum.photos/seed/myphoto/128/128"
+              src="https://firebasestudio.googleapis.com/v0/b/firebase-studio-users.appspot.com/o/image-cropper%2Ftmp%2F9882643%2F88358249-14a0-474c-8bb1-e374d97f48d1.png?alt=media&token=8e92f254-6e69-424a-a43b-5a0d3381a340"
               alt="Developer's photo"
               width={128}
               height={128}
-              className="rounded-full mb-4 shadow-lg"
+              className="rounded-full mb-4 shadow-lg object-cover"
               data-ai-hint="portrait"
             />
             <h3 className="text-2xl font-headline font-bold">Developed By [Your Name]</h3>
